@@ -8,15 +8,6 @@ public class Contacts {
     private String phNumber;
     private String eMail;
 
-    public Contacts(String firstName, String lastName, String city, String state, String zipCode, String phNumber, String eMail) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.phNumber = phNumber;
-        this.eMail = eMail;
-    }
 
     @Override
     public String toString() {
