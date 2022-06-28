@@ -9,7 +9,9 @@ public class AddressBookMain {
         int choice;
         do {
             Scanner scan = new Scanner(System.in);
-            System.out.println("Kindly Enter choice \n 1. Add new Contact \n 2. Edit Contact details \n 3. Exit");
+            System.out.println("Kindly Enter choice \n 1. Add new Contact \n 2. Edit Contact details \n 3. Delete" +
+                    "\n 4. Exit ");
+
             choice = scan.nextInt();
             switch (choice) {
                 case 1:
@@ -20,6 +22,9 @@ public class AddressBookMain {
                     addressBook.editContact();
                     break;
                 case 3:
+                    addressBook.deleteContact();
+                    break;
+                case 4:
                     System.out.println("Thanks For Using");
                     System.exit(3);
                     break;

@@ -58,4 +58,19 @@ public class AddressBook {
         }
         System.out.println(contacts);
     }
+
+    public void deleteContact(){
+        System.out.println("Enter the first name");
+        String firstName = scanner.next();
+
+        boolean isAvailable = false;
+        if (firstName.equalsIgnoreCase(contacts.getFirstName())) {
+            isAvailable = true;
+            System.out.println("Contact Deleted ");
+            contacts = null;
+        }
+        if (!isAvailable) {
+            System.out.println("Contact Number Not found ");
+        }
+    }
 }
