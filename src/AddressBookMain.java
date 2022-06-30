@@ -1,6 +1,21 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddressBookMain {
+    static HashMap<String, AddressBook> addressBookMap = new HashMap<>();
+
+    public static void addNewAddressBook() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the Address Book Name :");
+        String addressBookName = sc.next();
+        if (addressBookMap.containsKey(addressBookName)) {
+            System.out.println("Entered AddressBook is Already Available");
+        } else {
+            AddressBook addressBook = new AddressBook();
+            addressBookMap.put(addressBookName, addressBook);
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println("Welcome To Address Book Programme");
@@ -8,6 +23,7 @@ public class AddressBookMain {
 
         int choice;
         do {
+            addNewAddressBook();
             Scanner scan = new Scanner(System.in);
             System.out.println("Kindly Enter choice \n 1. Add new Contact \n 2. Edit Contact details \n 3. Delete" +
                     "\n 4. Exit ");

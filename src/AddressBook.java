@@ -5,7 +5,7 @@ public class AddressBook {
 
     ArrayList<Contacts> list = new ArrayList<Contacts>();
     Scanner scanner = new Scanner(System.in);
-
+    AddressBookMain addressBookMain = new AddressBookMain();
     public void addContact(){
         Contacts contacts = new Contacts();
 
@@ -45,6 +45,7 @@ public class AddressBook {
                     ", eMail='" + contacts.geteMail() + '\'' +
                     '}');
         }
+        System.out.println(AddressBookMain.addressBookMap);
     }
     public void editContact() {
 
