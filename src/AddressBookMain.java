@@ -17,7 +17,6 @@ public class AddressBookMain {
                 case 1:
                     addressBook.addContact();
                     break;
-
                 case 2:
                     addressBook.editContact();
                     break;
@@ -25,12 +24,14 @@ public class AddressBookMain {
                     addressBook.deleteContact();
                     break;
                 case 4:
+                    addressBook.showContacts();
                     System.out.println("Thanks For Using");
                     System.exit(3);
                     break;
                 default:
                     System.out.println("Please Enter the correct Choice");
             }
-        } while (choice != 3);
+        } while (true);
+
     }
 }
