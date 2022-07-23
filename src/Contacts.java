@@ -6,7 +6,7 @@ public class Contacts {
     private String state;
     private String zipCode;
     private String phNumber;
-    private String eMail;
+    private String EMail;
 
     @Override
     public String toString() {
@@ -17,7 +17,7 @@ public class Contacts {
                 ", state='" + state + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", phNumber='" + phNumber + '\'' +
-                ", eMail='" + eMail + '\'' +
+                ", eMail='" + EMail + '\'' +
                 '}';
     }
 
@@ -69,11 +69,21 @@ public class Contacts {
         this.phNumber = phNumber;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEMail() {
+        return EMail;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEMail(String EMail) {
+        this.EMail = EMail;
+    }
+
+    public Contacts(String firstName, String lastName, String city, String state, String zipCode, String phNumber, String eMail) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.phNumber = phNumber;
+        this.EMail = eMail;
     }
 }
