@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class AddressBook {
@@ -41,8 +40,8 @@ public class AddressBook {
         }
         if (!flag) {
             ContactDetails.add(personDetails);
-            storePersonByCity(personDetails.getCity(), personDetails);//call store person details by city name
-            storePersonByState(personDetails.getState(), personDetails);//call store person details by state name
+            storePersonByCity((String) personDetails.getCity(), personDetails);//call store person details by city name
+            storePersonByState((String) personDetails.getState(), personDetails);//call store person details by state name
         } else {
             System.out.println("First Name already exist..");
         }
@@ -191,6 +190,7 @@ public class AddressBook {
             return;
         }
 
+        Collections.sort(ContactDetails, new SortbyName());
         for (Contacts objPerson : ContactDetails) {
             System.out.println("--------------------------");
             objPerson.displayPersonContactDetails();
@@ -345,16 +345,14 @@ public class AddressBook {
     public static void searchPersonCity() {
         System.out.println("Enter City name");
         String city = input.next();
-        dictAddressBook.values().forEach(book -> book.ContactDetails.stream().filter(person -> person.getCity().equalsIgnoreCase(city)).forEach(System.out::println));
+        dictAddressBook.values().forEach(book -> book.ContactDetails.stream().filter(person -> person.getCity().equals(city.toLowerCase())).forEach(System.out::println));
     }
 
     public static void searchPersonState() {
         System.out.println("Enter State name");
         String state = input.next();
-        dictAddressBook.values().forEach(book -> book.ContactDetails.stream().filter(person -> person.getState().equalsIgnoreCase(state)).forEach(System.out::println));
-
+        dictAddressBook.values().forEach(book -> book.ContactDetails.stream().filter(person -> person.getState().equals(state.toLowerCase())).forEach(System.out::println));
     }
-
     public static void viewPersonCity(String city) {
         ArrayList<Contacts> personDetails = (ArrayList<Contacts>) dictCity.get(city);
         personDetails.stream().forEach(System.out::println);

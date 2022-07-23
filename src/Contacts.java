@@ -1,92 +1,93 @@
+import java.util.Comparator;
 
-public class Contacts {
-    private String firstName;
-    private String lastName;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String phNumber;
-    private String EMail;
+public class Contacts <T extends Comparable<T>> {
+    private T firstName;
+    private T lastName;
+    private T city;
+    private T state;
+    private T EMail;
+    private T zipCode;
+    private T phNumber;
+
+    public T getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(T firstName) {
+        this.firstName = firstName;
+    }
+
+    public T getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(T lastName) {
+        this.lastName = lastName;
+    }
+
+    public T getCity() {
+        return city;
+    }
+
+    public void setCity(T city) {
+        this.city = city;
+    }
+
+    public T getState() {
+        return state;
+    }
+
+    public void setState(T state) {
+        this.state = state;
+    }
+
+    public T getEMail() {
+        return EMail;
+    }
+
+    public void setEMail(T EMail) {
+        this.EMail = EMail;
+    }
+
+    public T getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(T zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public T getPhNumber() {
+        return phNumber;
+    }
+
+    public void setPhNumber(T phNumber) {
+        this.phNumber = phNumber;
+    }
+
+    public void displayPersonContactDetails() {
+        System.out.println("First Name: " + firstName + "\nLast Name: " + lastName +"\nCity: " + city + "\nState: " + state + "\nZip: " + zipCode + "\nPhone Number: " + phNumber + "\nEmail Id: " + EMail);
+    }
 
     @Override
     public String toString() {
-        return "Contacts{" +
+        return "PersonDetails{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", phNumber='" + phNumber + '\'' +
-                ", eMail='" + EMail + '\'' +
+                ", email='" + EMail + '\'' +
+                ", zip='" + zipCode + '\'' +
+                ", phone='" + phNumber + '\'' +
                 '}';
     }
-    public void displayPersonContactDetails() {
-        System.out.println("First Name: " + firstName + "\nLast Name: " + lastName + "\nCity: " + city + "\nState: " + state + "\nZipCode : " + zipCode + "\nPhone Number: " + phNumber + "\nEmail Id: " + EMail);
-    }
+}
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+class SortbyName implements Comparator<Contacts> {
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getPhNumber() {
-        return phNumber;
-    }
-
-    public void setPhNumber(String phNumber) {
-        this.phNumber = phNumber;
-    }
-
-    public String getEMail() {
-        return EMail;
-    }
-
-    public void setEMail(String EMail) {
-        this.EMail = EMail;
-    }
-
-    public Contacts() {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.phNumber = phNumber;
-        this.EMail = EMail;
+    @Override
+    public int compare(Contacts o1, Contacts o2) {
+        return o1.getFirstName().compareTo(o2.getFirstName());
     }
 }
