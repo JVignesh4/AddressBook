@@ -20,6 +20,9 @@ public class Contacts {
                 ", eMail='" + EMail + '\'' +
                 '}';
     }
+    public void displayPersonContactDetails() {
+        System.out.println("First Name: " + firstName + "\nLast Name: " + lastName + "\nCity: " + city + "\nState: " + state + "\nZipCode : " + zipCode + "\nPhone Number: " + phNumber + "\nEmail Id: " + EMail);
+    }
 
     public String getFirstName() {
         return firstName;
@@ -77,13 +80,13 @@ public class Contacts {
         this.EMail = EMail;
     }
 
-    public Contacts(String firstName, String lastName, String city, String state, String zipCode, String phNumber, String eMail) {
+    public Contacts() {
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
         this.phNumber = phNumber;
-        this.EMail = eMail;
+        this.EMail = EMail;
     }
 }
