@@ -184,20 +184,31 @@ public class AddressBook {
     }
 
     //display contact details
+
+    //display contact details
     public void displayContactDetails() {
         if (ContactDetails.isEmpty()) {//check list are empty or not
             System.out.println("------NO RECORDS------");
             return;
         }
-
-        Collections.sort(ContactDetails, new SortbyName());
-        for (Contacts objPerson : ContactDetails) {
-            System.out.println("--------------------------");
-            objPerson.displayPersonContactDetails();
-            System.out.println("--------------------------");
+        System.out.println("do want to sort contacts on specific details");
+        System.out.println("1. Name \t 2. City \t 3. State \t 4. Zip");
+        int ch = input.nextInt();
+        switch (ch) {
+            case 2:
+                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(System.out::println);
+                break;
+            case 3:
+                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getState)).forEach(System.out::println);
+                break;
+            case 4:
+                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getZipCode)).forEach(System.out::println);
+                break;
+            default:
+                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
+                break;
         }
     }
-
 
     public static String inputString(String message) {
         System.out.println(message);
