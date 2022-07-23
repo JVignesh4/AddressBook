@@ -2,7 +2,7 @@ import java.util.*;
 
 public class AddressBook {
     static HashMap<String, AddressBook> addressBookMap = new HashMap<>();
-    ArrayList<Contacts> contactList = new ArrayList<Contacts>();
+    static ArrayList<Contacts> contactList = new ArrayList<Contacts>();
     Contacts contacts;
     static Scanner scanner = new Scanner(System.in);
 
@@ -45,8 +45,6 @@ public class AddressBook {
                     '}');
         }
         System.out.println(addressBookMap);
-        //Using Stream function for sorting with First Name
-        //contactList.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
     }
 
     public void editContact() {
@@ -80,7 +78,7 @@ public class AddressBook {
         }
     }
 
-    public void duplicateEntry(){
+    public void duplicateEntry() {
         boolean flag = false;
         Contacts personDetails = addContact();
         for (Contacts objPerson : contactList) {
@@ -130,22 +128,21 @@ public class AddressBook {
         int choice;
         do {
             String bookName = "";
-            AddressBook addressBook = new AddressBook();
+            AddressBook addressBook;
             System.out.println("Welcome to Address Book System ");
             choice = inputInteger("1.Add a New Address Book" +
-                    "\n 2.Edit Address Book \n 3. Display Address Book \n 4. Exit");
+                    "\n 2.Edit Address Book \n 3. Display Address Book \n 4. Search by City \n 5. Search by State " +
+                    "\n 6. EXIT");
             switch (choice) {
                 case 1:
-                    bookName = inputString("Add a New Address Book");
-                    addressBookMap.put(bookName,addressBook);
                     addNewAddressBook();
+                    menu();
                     break;
                 case 2:
                     if (!addressBookMap.isEmpty()) {
                         displayBooks();
                         bookName = inputString("Enter Address Book Name to Access: ");
-                        addressBook = addressBookMap.get(bookName);
-                        menu(bookName, addressBook);
+                        addressBookMap.get(bookName);
                     } else {
                         System.out.println("No Address Books are present");
                     }
@@ -154,20 +151,26 @@ public class AddressBook {
                     System.out.println("List Of Available Address Book ");
                     Set keys = addressBookMap.keySet();
                     Iterator i = keys.iterator();
-                    while(i.hasNext()){
+                    while (i.hasNext()) {
                         System.out.println(i.next());
                     }
                     break;
                 case 4:
+                    searchPersonCity();
+                    break;
+                case 5:
+                    searchPersonState();
+                    break;
+                case 6:
                     System.out.println("Thanks For Using!");
-                    flag =true;
+                    flag = true;
                     break;
             }
-        }while (!flag);
+        } while (!flag);
     }
 
 
-    public void menu(String bookName, AddressBook addressBook) {
+    public void menu() {
         System.out.println("Welcome To Address Book Programme");
 
         boolean flag = false;
@@ -181,7 +184,6 @@ public class AddressBook {
 
             switch (choice) {
                 case 1:
-                    duplicateEntry();
                     addContact();
                     System.out.println("Contact Added Successfully!!");
                     break;
@@ -198,7 +200,7 @@ public class AddressBook {
                     break;
                 case 5:
                     System.out.println("Thanks For Using");
-                    flag =true;
+                    flag = true;
                     break;
                 default:
                     System.out.println("Please Enter the correct Choice");
@@ -206,25 +208,31 @@ public class AddressBook {
         } while (!flag);
 
     }
-    public static String inputString(String message) {
-        System.out.println(message);
-        return scanner.next().toLowerCase();
-    }
-
-    public static int inputInteger(String message) {
-        System.out.println(message);
-        return scanner.nextInt();
-    }
-
-    public static char inputChar(String message) {
-        System.out.println(message);
-        return scanner.next().toUpperCase().charAt(0);
-    }
 
     public static void displayBooks() {
         for (String books : addressBookMap.keySet()) {
             System.out.println(books);
         }
     }
-}
 
+    public static int inputInteger(String message) {
+        System.out.println(message);
+        return scanner.nextInt();
+    }
+    public static String inputString(String message) {
+        System.out.println(message);
+        return scanner.next().toLowerCase();
+    }
+    public static void searchPersonCity() {
+        System.out.println("Enter City name");
+        String city = scanner.next();
+        contactList.stream().filter(person -> person.getCity().equalsIgnoreCase(city)).forEach(System.out::println);
+    }
+
+    public static void searchPersonState() {
+        System.out.println("Enter State name");
+        String state = scanner.next();
+        contactList.stream().filter(person -> person.getState().equalsIgnoreCase(state)).forEach(System.out::println);
+    }
+
+}
