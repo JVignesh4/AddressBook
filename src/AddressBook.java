@@ -227,8 +227,12 @@ public class AddressBook {
 
     public static void displayBooks() {
         for (String books : dictAddressBook.keySet()) {
-            System.out.println(books);
-        }
+            if (dictAddressBook.isEmpty())
+                System.out.println("Please Add Some Address Book");
+            else
+                System.out.println("The Available Books are : ");
+                System.out.println(books);
+            }
     }
 
     public static void displayNames(AddressBook addressBook) {
@@ -279,7 +283,7 @@ public class AddressBook {
             String bookName = "";
             AddressBook addressBook = new AddressBook();
             ch = inputInteger("1. Create New book\n2. Edit Existing book\n" +
-                    "3. Edit Global Contact\n4. search by city \n5. search by state\n6.view by city\n7.view by State\n8.count by city\n9.count by State\n(0 to Close)");
+                    "3. Edit Global Contact\n4. search by city \n5. search by state\n6.view by city\n7.view by State\n8.count by city\n9.count by State\n10. Display Address Books \n(0 to Close)");
             switch (ch) {
                 case 1:
                     bookName = inputString("Enter New Address Book Name: ");
@@ -331,7 +335,8 @@ public class AddressBook {
                     String stateToCount = input.next();
                     countPersonByState(stateToCount);
                     break;
-
+                case 10:
+                    displayBooks();
             }
         } while (ch != 0);
     }
