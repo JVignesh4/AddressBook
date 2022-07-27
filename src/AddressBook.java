@@ -391,6 +391,7 @@ public class AddressBook {
     }
 
     public static void viewPersonState(String state) {
+
         ArrayList<Contacts> personDetails = (ArrayList<Contacts>) dictState.get(state);
         personDetails.stream().forEach(System.out::println);
     }
