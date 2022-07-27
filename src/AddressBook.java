@@ -1,9 +1,10 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBook {
-    List<Contacts> ContactDetails = new ArrayList<>();
+    static List<Contacts> contactDetails = new ArrayList<>();
     static Scanner input = new Scanner(System.in);
-    static HashMap<String, AddressBook> dictAddressBook = new HashMap<>();//
+    static HashMap<String, AddressBook> dictAddressBook = new HashMap<>();
     static Dictionary dictCity = new Hashtable<String, ArrayList<Contacts>>();
     static Dictionary dictState = new Hashtable<String, ArrayList<Contacts>>();
 
@@ -33,13 +34,13 @@ public class AddressBook {
     public void addContactDetail() {
         boolean flag = false;
         Contacts personDetails = readContactDetail();
-        for (Contacts objPerson : ContactDetails) {
+        for (Contacts objPerson : contactDetails) {
             if (objPerson.getFirstName().equals(personDetails.getFirstName())) {
                 flag = true;
             }
         }
         if (!flag) {
-            ContactDetails.add(personDetails);
+            contactDetails.add(personDetails);
             storePersonByCity((String) personDetails.getCity(), personDetails);//call store person details by city name
             storePersonByState((String) personDetails.getState(), personDetails);//call store person details by state name
         } else {
@@ -80,14 +81,14 @@ public class AddressBook {
     }
 
     public void editContactDetail(String firstName) {
-        if (ContactDetails.isEmpty()) {
+        if (contactDetails.isEmpty()) {
             System.out.println("------NO RECORDS------");
             return;
         }
 
         boolean flag = false;
         Contacts newPersonContact = null;
-        for (Contacts objPerson : ContactDetails) {
+        for (Contacts objPerson : contactDetails) {
             if (objPerson.getFirstName().equals(firstName)) {
                 newPersonContact = objPerson;
                 flag = true;
@@ -165,13 +166,13 @@ public class AddressBook {
 
     public void deleteContactDetail(String firstName) {
         boolean flag = false;
-        if (ContactDetails.isEmpty()) {
+        if (contactDetails.isEmpty()) {
             System.out.println("------NO RECORDS------");
             return;
         }
-        for (Contacts objPerson : ContactDetails) {
+        for (Contacts objPerson : contactDetails) {
             if (objPerson.getFirstName().equals(firstName)) {
-                ContactDetails.remove(objPerson);
+                contactDetails.remove(objPerson);
                 flag = true;
                 break;
             }
@@ -187,7 +188,7 @@ public class AddressBook {
 
     //display contact details
     public void displayContactDetails() {
-        if (ContactDetails.isEmpty()) {//check list are empty or not
+        if (contactDetails.isEmpty()) {//check list are empty or not
             System.out.println("------NO RECORDS------");
             return;
         }
@@ -196,16 +197,16 @@ public class AddressBook {
         int ch = input.nextInt();
         switch (ch) {
             case 2:
-                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(System.out::println);
+                contactDetails.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(System.out::println);
                 break;
             case 3:
-                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getState)).forEach(System.out::println);
+                contactDetails.stream().sorted(Comparator.comparing(Contacts::getState)).forEach(System.out::println);
                 break;
             case 4:
-                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getZipCode)).forEach(System.out::println);
+                contactDetails.stream().sorted(Comparator.comparing(Contacts::getZipCode)).forEach(System.out::println);
                 break;
             default:
-                ContactDetails.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
+                contactDetails.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
                 break;
         }
     }
@@ -220,20 +221,24 @@ public class AddressBook {
         return input.nextInt();
     }
 
-    public static char inputChar(String message) {
+   /* public static char inputChar(String message) {
         System.out.println(message);
         return input.next().toUpperCase().charAt(0);
-    }
+    }*/
 
     public static void displayBooks() {
         for (String books : dictAddressBook.keySet()) {
+            if (dictAddressBook.isEmpty())
+                System.out.println("Please Add Some Address Book");
+            else
+                System.out.println("The Available Books are : ");
             System.out.println(books);
         }
     }
 
     public static void displayNames(AddressBook addressBook) {
         System.out.print("First Names: ");
-        for (Contacts objPerson : addressBook.ContactDetails
+        for (Contacts objPerson : addressBook.contactDetails
         ) {
             System.out.print(objPerson.getFirstName() + ", ");
         }
@@ -241,7 +246,7 @@ public class AddressBook {
     }
 
     public static void userOperation(String bookName, AddressBook addressBook) {
-        int choice = 0;
+        int choice;
         do {
             System.out.println("--------------------------");
             System.out.println("Accessing: " + bookName);
@@ -279,7 +284,7 @@ public class AddressBook {
             String bookName = "";
             AddressBook addressBook = new AddressBook();
             ch = inputInteger("1. Create New book\n2. Edit Existing book\n" +
-                    "3. Edit Global Contact\n4. search by city \n5. search by state\n6.view by city\n7.view by State\n8.count by city\n9.count by State\n(0 to Close)");
+                    "3. Edit AddressBook \n4. Display Books \n5. Search Options \n(0 to Close)");
             switch (ch) {
                 case 1:
                     bookName = inputString("Enter New Address Book Name: ");
@@ -306,40 +311,55 @@ public class AddressBook {
                     }
                     break;
                 case 4:
+                    displayBooks();
+                case 5:
+                    SearchOption();
+            }
+        } while (ch != 0);
+    }
+
+    private static void SearchOption() {
+        int choice;
+        do {
+            System.out.println("Please Enter the Option ");
+            System.out.println("1. Search By City \n2. Search By State \n3. View By City \n4. View By State \n5. Count by City \n6. Count by State \n(0 to Close)");
+            choice = input.nextInt();
+
+            switch (choice){
+                case 1:
                     searchPersonCity();
                     break;
-                case 5:
+                case 2:
                     searchPersonState();
                     break;
-                case 6:
+                case 3:
                     System.out.println("Enter City name");
                     String city = input.next();
                     viewPersonCity(city);
                     break;
-                case 7:
+                case 4:
                     System.out.println("Enter State name");
                     String state = input.next();
                     viewPersonState(state);
                     break;
-                case 8:
+                case 5:
                     System.out.println("Enter city name");
                     String cityToCount = input.next();
                     countPersonByCity(cityToCount);
                     break;
-                case 9:
+                case 6:
                     System.out.println("Enter state name");
                     String stateToCount = input.next();
                     countPersonByState(stateToCount);
                     break;
-
             }
-        } while (ch != 0);
+        }while (choice != 0);
     }
 
     public static void editGlobalContact(String personName) {
         boolean flag = false;
         for (AddressBook addressBook : dictAddressBook.values()) {
-            for (Contacts listContactDetail : addressBook.ContactDetails
+            for (Contacts listContactDetail : addressBook.contactDetails
             ) {
                 if (listContactDetail.getFirstName().equals(personName)) {
                     flag = true;
@@ -356,35 +376,35 @@ public class AddressBook {
     public static void searchPersonCity() {
         System.out.println("Enter City name");
         String city = input.next();
-        dictAddressBook.values().forEach(book -> book.ContactDetails.stream().filter(person -> person.getCity().equals(city.toLowerCase())).forEach(System.out::println));
+        dictAddressBook.values().forEach(book -> book.contactDetails.stream().filter(person -> person.getCity().equals(city.toLowerCase())).forEach(System.out::println));
     }
 
     public static void searchPersonState() {
         System.out.println("Enter State name");
         String state = input.next();
-        dictAddressBook.values().forEach(book -> book.ContactDetails.stream().filter(person -> person.getState().equals(state.toLowerCase())).forEach(System.out::println));
+        dictAddressBook.values().forEach(book -> book.contactDetails.stream().filter(person -> person.getState().equals(state.toLowerCase())).forEach(System.out::println));
     }
+
     public static void viewPersonCity(String city) {
         ArrayList<Contacts> personDetails = (ArrayList<Contacts>) dictCity.get(city);
         personDetails.stream().forEach(System.out::println);
     }
 
     public static void viewPersonState(String state) {
+
         ArrayList<Contacts> personDetails = (ArrayList<Contacts>) dictState.get(state);
         personDetails.stream().forEach(System.out::println);
     }
 
-
     public static void countPersonByCity(String city) {
-        ArrayList<Contacts> personDetails = (ArrayList<Contacts>) dictCity.get(city);
-        int count = (int) personDetails.stream().count();
-        System.out.println("city: " + city + " are " + count);
+        dictAddressBook.values().forEach(book -> book.contactDetails.stream().filter(person -> person.getState().equals(city.toLowerCase())).count());
+        long count = contactDetails.stream().sorted(Comparator.comparing(Contacts::getState)).count();
+        System.out.println("The Count of State is : " + count + " " + city);
     }
 
     public static void countPersonByState(String state) {
-        ArrayList<Contacts> personDetails = (ArrayList<Contacts>) dictCity.get(state);
-        int count = (int) personDetails.stream().count();
-        System.out.println("city: " + state + " are " + count);
+        dictAddressBook.values().forEach(book -> book.contactDetails.stream().filter(person -> person.getState().equals(state.toLowerCase())).count());
+        long count = contactDetails.stream().sorted(Comparator.comparing(Contacts::getState)).count();
+        System.out.println("The Count of State is : " + count + " " + state);
     }
-
 }
