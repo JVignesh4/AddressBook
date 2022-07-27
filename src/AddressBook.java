@@ -185,8 +185,6 @@ public class AddressBook {
     }
 
     //display contact details
-
-    //display contact details
     public void displayContactDetails() {
         if (contactDetails.isEmpty()) {//check list are empty or not
             System.out.println("------NO RECORDS------");
