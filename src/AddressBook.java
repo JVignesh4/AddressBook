@@ -41,6 +41,8 @@ public class AddressBook {
         }
         if (!flag) {
             contactDetails.add(personDetails);
+            FileIO fileIO = new FileIO();
+            FileIO.write(contactDetails);//write person data into file
             storePersonByCity((String) personDetails.getCity(), personDetails);//call store person details by city name
             storePersonByState((String) personDetails.getState(), personDetails);//call store person details by state name
         } else {
