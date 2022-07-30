@@ -82,12 +82,3 @@ public class Contacts <T extends Comparable<T>> {
                 '}';
     }
 }
-
-
-class SortbyName implements Comparator<Contacts> {
-
-    @Override
-    public int compare(Contacts o1, Contacts o2) {
-        return o1.getFirstName().compareTo(o2.getFirstName());
-    }
-}

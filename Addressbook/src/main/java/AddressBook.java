@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,7 @@ public class AddressBook {
         return personContact;
     }
 
-    public void addContactDetail() {
+    public void addContactDetail() throws IOException {
         boolean flag = false;
         Contacts personDetails = readContactDetail();
         for (Contacts objPerson : contactDetails) {
@@ -42,7 +44,9 @@ public class AddressBook {
         if (!flag) {
             contactDetails.add(personDetails);
             FileIO fileIO = new FileIO();
-            FileIO.write(contactDetails);//write person data into file
+            fileIO.write(contactDetails);//write person data into file
+            OpenCSV openCSV = new OpenCSV();
+            openCSV.writeToCSV((ArrayList<Contacts>) contactDetails);
             storePersonByCity((String) personDetails.getCity(), personDetails);//call store person details by city name
             storePersonByState((String) personDetails.getState(), personDetails);//call store person details by state name
         } else {
@@ -245,7 +249,7 @@ public class AddressBook {
         System.out.println();
     }
 
-    public static void userOperation(String bookName, AddressBook addressBook) {
+    public static void userOperation(String bookName, AddressBook addressBook) throws IOException {
         int choice;
         do {
             System.out.println("--------------------------");
@@ -277,7 +281,7 @@ public class AddressBook {
         } while (choice != 0);
     }
 
-    public static void addressBookMenu() {
+    public static void addressBookMenu() throws IOException {
         int ch;
         System.out.println("Welcome to Address Book");
         do {
