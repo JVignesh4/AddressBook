@@ -1,7 +1,5 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AddressBook {
     static List<Contacts> contactDetails = new ArrayList<>();
@@ -45,8 +43,9 @@ public class AddressBook {
             contactDetails.add(personDetails);
             FileIO fileIO = new FileIO();
             fileIO.write(contactDetails);//write person data into file
-            OpenCSV openCSV = new OpenCSV();
+            OpenCSVAndGSON openCSV = new OpenCSVAndGSON();
             openCSV.writeToCSV((ArrayList<Contacts>) contactDetails);
+            openCSV.writeToJson((ArrayList<Contacts>) contactDetails);
             storePersonByCity((String) personDetails.getCity(), personDetails);//call store person details by city name
             storePersonByState((String) personDetails.getState(), personDetails);//call store person details by state name
         } else {

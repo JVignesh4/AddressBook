@@ -16,13 +16,32 @@
     <dependency>
         <groupId>com.opencsv</groupId>
         <artifactId>opencsv</artifactId>
-        <version>4.1</version>
+        <version>5.6</version>
     </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>io.xiandan</groupId>
+            <artifactId>json-ktx</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.xiandan</groupId>
+            <artifactId>gson-ktx</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20220320</version>
+        </dependency>
+
     </dependencies>
 
 </project>
